@@ -1,13 +1,23 @@
 version: "3"
 
 services:
+  react-ui:
+    build:
+      context: ./front
+    ports:
+      - "3000:3000"
+    container_name: react-ui
+    stdin_open: true
+    volumes:
+      - ./front:/usr/src/app/front
+      - /usr/src/app/front/node_modules
   user:
     container_name: user
     build:
       context: ./services/user
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3001:3000"
     environment:
       - PORT=3000
   product:
@@ -16,6 +26,6 @@ services:
       context: ./services/product
       dockerfile: Dockerfile
     ports:
-      - "3001:3000"
+      - "3002:3000"
     environment:
       - PORT=3000
